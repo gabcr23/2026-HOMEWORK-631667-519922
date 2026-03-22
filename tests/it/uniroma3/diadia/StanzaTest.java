@@ -9,6 +9,7 @@ class StanzaTest {
 
 	private Stanza stanza;
 	private Attrezzo attrezzo;
+	private Stanza stanza = new Stanza("n18");
 	
 	@BeforeEach
 	public void setUp() {
@@ -71,6 +72,32 @@ class StanzaTest {
 		Attrezzo attrezzoFitt=new Attrezzo("Fittizzio", 4);
 		this.stanza.addAttrezzo(attrezzoFitt);
 		assertTrue(this.stanza.hasAttrezzo("Fittizzio"), "Il metodo deve ritornare true poiche' c'e' uno spazio nell'array");
+	}
+
+
+	@Test
+    void testGetStanzaAdiacenteInesistente() {
+        assertNull(stanza.getStanzaAdiacente("n18"));
+    }
+
+	
+	
+	@Test
+	void testSetStanzaAdiacenteMaxDirezioni() {
+	    stanza.impostaStanzaAdiacente("nord", new Stanza("A"));
+	    stanza.impostaStanzaAdiacente("sud", new Stanza("B"));
+	    stanza.impostaStanzaAdiacente("est", new Stanza("C"));
+	    stanza.impostaStanzaAdiacente("ovest", new Stanza("D"));
+	    stanza.impostaStanzaAdiacente("alto", new Stanza("E"));
+	    assertNull(stanza.getStanzaAdiacente("alto")); 
+	}
+		
+	@Test 
+	void testAddStanzaAdiacente() {
+	    Stanza stanza = new Stanza("N11");
+	    Stanza bagno = new Stanza("Bagno");
+	    stanza.impostaStanzaAdiacente("nord", bagno);
+	    assertEquals(bagno, stanza.getStanzaAdiacente("nord"));
 	}
 	
 }
