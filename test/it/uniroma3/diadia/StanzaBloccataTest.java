@@ -47,4 +47,26 @@ public class StanzaBloccataTest {
         String descrizione = stanzaBloccata.getDescrizione();
         assertFalse(descrizione.contains("bloccata"));
     }
+	
+	@Test
+	public void testDirezioneLiberaSempreAccessibile() {
+	    Stanza stanzaSud = new Stanza("giardino");
+	    stanzaBloccata.impostaStanzaAdiacente("sud", stanzaSud);
+	    
+	    // Il blocco è a "nord". Andare a "sud" DEVE funzionare senza chiave.
+	    assertSame("Le direzioni diverse da quella bloccata devono essere sempre accessibili",
+	               stanzaSud, 
+	               stanzaBloccata.getStanzaAdiacente("sud"));
+	}
+	@Test
+    public void testDirezioneBloccataConAttrezzoSbagliato() {
+        // Inserisco un attrezzo diverso dalla "chiave"
+        stanzaBloccata.addAttrezzo(new Attrezzo("grimaldello", 2));
+        
+        // Il passaggio verso nord deve rimanere bloccato (restituire this)
+        assertSame("La direzione deve rimanere bloccata se si inserisce l'attrezzo sbagliato",
+                   stanzaBloccata, 
+                   stanzaBloccata.getStanzaAdiacente("nord"));
+    }
 }
+

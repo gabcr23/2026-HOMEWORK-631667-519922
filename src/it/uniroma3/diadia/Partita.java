@@ -21,12 +21,6 @@ public class Partita {
 	private boolean finita;
 	
 	//Costruttori
-	public Partita(){
-		this.labirinto=new Labirinto();
-		this.giocatore= new Giocatore();
-		this.stanzaCorrente=this.labirinto.getStanzaIniziale();
-		this.finita = false;
-	}
 
 	
 	
@@ -44,12 +38,19 @@ public class Partita {
      * Metodo creaStanze(), getter e setter delle stanze spostate in Labirinto
     */
 	
-	public Stanza getStanzaVincente() {
-		return this.labirinto.getStanzaVincente();
-	}
-	
+	public void setLabirinto(Labirinto labirinto) {
+        this.labirinto = labirinto;
+    }
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
 		this.stanzaCorrente=stanzaCorrente;
+	}
+	public void setFinita() {
+		this.finita = true;
+	}
+	
+	
+	public Stanza getStanzaVincente() {
+		return this.labirinto.getStanzaVincente();
 	}
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
@@ -66,7 +67,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente()== this.getStanzaVincente();
+		return this.getStanzaCorrente().getNome().equals(getStanzaVincente().getNome());
 	}
 
 	/**
@@ -83,8 +84,4 @@ public class Partita {
 	 */
 	
 	//Metodi getter e setter dei CFU spostati in Giocatore
-	
-	public void setFinita() {
-		this.finita = true;
-	}
 }

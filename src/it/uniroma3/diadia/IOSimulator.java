@@ -1,45 +1,59 @@
 package it.uniroma3.diadia;
 
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class IOSimulator implements IO{
 
-	private String[] righeDaLeggere;     // INPUT 
-	private String[] messaggiStampati;   // OUTPUT
-	private int indiceLettura;           // posizione corrente INPUT
-	private int indiceScrittura;         // posizione corrente OUTPUT
-    static final private int MAX_MESSAGGI = 200;
-	public IOSimulator(String[] righeDaLeggere) {
+	private List<String> righeDaLeggere;
+	private int indiceLettura;
+	
+	//Mappiamo l'indice della riga letta ai messaggi generati
+	private Map<Integer, List<String>> inputToOutputMap;
+	
+	//Raccogliamo tutti i messaggi in ordine, per aiutarci nei test
+	private List<String> tuttiIMessaggiProdotti;
+	
+	public IOSimulator(List<String> righeDaLeggere) {
 		this.righeDaLeggere = righeDaLeggere;
-		this.messaggiStampati = new String[MAX_MESSAGGI]; //ad esempio 1000
-		this.indiceLettura = 0;
-		this.indiceScrittura = 0;
-	}
+		this.tuttiIMessaggiProdotti=new ArrayList<>();
+		this.inputToOutputMap=new HashMap<>();	
+		}
 
 	@Override
 	public void mostraMessaggio(String messaggio) {
-		if(this.indiceScrittura < MAX_MESSAGGI) {
-			this.messaggiStampati[this.indiceScrittura]=messaggio;
-			this.indiceScrittura++;
+		this.tuttiIMessaggiProdotti.add(messaggio);
+		int indiceUltimoComando=this.indiceLettura-1;
+		if(indiceUltimoComando>=0 && this.inputToOutputMap.containsKey(indiceUltimoComando)) {
+			this.inputToOutputMap.get(indiceUltimoComando).add(messaggio);
 		}
 	}
 	@Override
 	public String leggiRiga() {
-		if (this.righeDaLeggere==null || this.indiceLettura >= this.righeDaLeggere.length) {
-			return null;
-		}
-			String riga = this.righeDaLeggere[this.indiceLettura];
+		if(this.indiceLettura < this.righeDaLeggere.size()) {
+			String riga=this.righeDaLeggere.get(this.indiceLettura);
+			this.inputToOutputMap.put(this.indiceLettura, new ArrayList<>());
 			this.indiceLettura++;
 			return riga;
+		}
+		return "fine";
 	}
 	
 	//Getter
-	public String[] getMessaggiStampati() {
-	    return this.messaggiStampati;
+	public List<String> getMessaggiStampati() {
+	    return this.tuttiIMessaggiProdotti;
 	}
-	
+	public List<String> getMessaggiDiComandoAlNumero(int indiceComando) {
+        return this.inputToOutputMap.get(indiceComando);
+    }
 	public boolean hasMessaggio(String messaggioAtteso) {
 		if(messaggioAtteso==null)return false;
-		for(int i=0; i<this.indiceScrittura;i++) {
-			if(this.messaggiStampati[i]!=null && this.messaggiStampati[i].contains(messaggioAtteso)) return true;
+		for(String msg: this.tuttiIMessaggiProdotti) {
+			if(msg!=null && msg.contains(messaggioAtteso)) {
+				return true;
+			}
 		}
 		return false;
 	}

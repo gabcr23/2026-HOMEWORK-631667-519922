@@ -14,7 +14,7 @@ public class StanzaBuia extends Stanza{
 	
 	// Restituisce la descrizione della stanza.
 	// Se manca l'attrezzo che illumina, la stanza risulta buia
-	// e viene mostrato un messaggio di oscurità totale.
+	// e viene mostrato un messaggio di oscuritï¿½ totale.
 	@Override
 	public String getDescrizione() {
 		if (!this.hasAttrezzo(this.attrezzoCheIllumina))  //se NON presente...

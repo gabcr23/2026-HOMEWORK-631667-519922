@@ -32,15 +32,8 @@ public class StanzaMagicaProtected extends StanzaProtected{
             attrezzo = this.modificaAttrezzo(attrezzo);
         }
 
-        // DIFFERENZA ARCHITETTURALE:
-        // Nessun super.addAttrezzo(). Accediamo ai campi ereditati violando l'information hiding.
-        if (this.numeroAttrezzi < this.attrezzi.length) {
-            this.attrezzi[this.numeroAttrezzi] = attrezzo;
-            this.numeroAttrezzi++;
-            return true;
-        } else {
-            return false;
-        }
+        // Essendo ora una HashMap, usiamo put() al posto degli indici [].
+        return this.attrezzi.put(attrezzo.getNome(), attrezzo)==null;
     }
 
     

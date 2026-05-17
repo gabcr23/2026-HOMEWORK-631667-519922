@@ -36,4 +36,32 @@ public class StanzaBuiaTest {
         stanzaBuia.addAttrezzo(new Attrezzo("chiave", 1));
         assertTrue(stanzaBuia.hasAttrezzo("chiave"));
     }
+    @Test
+    public void testDescrizioneConAttrezzoSbagliato() {
+        // Inserisco un attrezzo che non è la "lanterna"
+        stanzaBuia.addAttrezzo(new Attrezzo("osso", 1));
+        
+        // SINTASSI JUNIT 4: messaggio, valore_atteso, valore_reale
+        assertEquals("La stanza deve rimanere buia se l'attrezzo inserito non e' quello illuminante",
+                     "qui c'è un buio pesto", 
+                     stanzaBuia.getDescrizione());
+    }
+    @Test
+    public void testAggiuntaERimozioneAttrezzoIlluminante() {
+        Attrezzo lanterna = new Attrezzo("lanterna", 1);
+        
+        // Fase 1: Inserisco e accendo la luce
+        stanzaBuia.addAttrezzo(lanterna);
+        assertNotEquals("La stanza deve illuminarsi con la lanterna",
+                        "qui c'è un buio pesto", 
+                        stanzaBuia.getDescrizione());
+        
+        // Fase 2: Rimuovo la luce
+        stanzaBuia.removeAttrezzo(lanterna);
+        
+        // Fase 3: Verifico il ripristino del buio
+        assertEquals("Dopo aver rimosso la lanterna, la stanza deve tornare buia",
+                     "qui c'è un buio pesto", 
+                     stanzaBuia.getDescrizione());
+    }
 }

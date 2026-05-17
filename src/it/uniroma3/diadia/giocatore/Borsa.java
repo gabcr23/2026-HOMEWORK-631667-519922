@@ -67,45 +67,17 @@ public class Borsa {
 	}
 
 
-	// Verifica se nella borsa è presente un attrezzo con il nome indicato.
+	// Verifica se nella borsa e' presente un attrezzo con il nome indicato.
 	// Restituisce true se esiste, false altrimenti.
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.attrezzi.containsKey(nomeAttrezzo);
 	}
 
 
-	//Da fare la prossima volta!
-	/*
-	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-	    if (nomeAttrezzo == null)
-	        return null;
-
-	    for (int i = 0; i < this.numeroAttrezzi; i++) {
-	        if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-
-	            Attrezzo rimosso = this.attrezzi[i];
-
-	            // sposto l'ultimo attrezzo nella posizione liberata
-	            this.attrezzi[i] = this.attrezzi[this.numeroAttrezzi - 1];
-	            this.attrezzi[this.numeroAttrezzi - 1] = null;
-
-	            this.numeroAttrezzi--;
-
-	            return rimosso;
-	        }
-	    }
-
-	    return null;
-	}
-
-	 */
-
-
-	//Variante remove con le Collezioni!
+	// Variante remove con le Collezioni!
 	// Rimuove e restituisce l'attrezzo con il nome indicato dalla borsa.
 	// Se non esiste, restituisce null.
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-
 		return this.attrezzi.remove(nomeAttrezzo);
 
 	}
@@ -130,7 +102,7 @@ public class Borsa {
 
 
 	//restituisce la lista degli attrezzi nella borsa ordinati per peso e quindi, 
-	//a parità di peso, per nome
+	//a parita' di peso, per nome
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 
 		ComparatorePesoNome perPeso = new ComparatorePesoNome();
@@ -158,7 +130,7 @@ public class Borsa {
 
 
 	//restituisce una mappa che associa un intero (rappresentante un 
-	//peso) con l’insieme (comunque non  vuoto) degli attrezzi di tale peso: 
+	//peso) con lï¿½insieme (comunque non  vuoto) degli attrezzi di tale peso: 
     //tutti gli attrezzi dell'insieme che figura come valore hanno lo stesso 
 	//peso pari all'intero che figura come chiave
 	public Map<Integer, Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
@@ -181,7 +153,7 @@ public class Borsa {
 
 
 	//restituisce l'insieme gli attrezzi nella borsa ordinati 
-	//per peso e quindi, a parità di peso, per nome
+	//per peso e quindi, a paritï¿½ di peso, per nome
 	public SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso() {
 		
 		SortedSet<Attrezzo> ordinati = new TreeSet<>(new ComparatorePesoNome());

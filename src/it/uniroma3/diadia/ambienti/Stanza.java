@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Stanza {
 	
-	
+	private static final String[] DIREZIONI_CONSENTITE= {"nord","sud","est","ovest"};
 	//variabili d'istanza
 	private String nome;
     private Map<String, Attrezzo> attrezzi;
@@ -78,9 +79,7 @@ public class Stanza {
      * Restituisce la collezione di attrezzi presenti nella stanza.
      * @return la collezione di attrezzi nella stanza.
      */
-    public Collection<Attrezzo> getAttrezzi() {
-        return this.attrezzi.values();
-    }
+   
 
     /**
      * Mette un attrezzo nella stanza.
@@ -134,8 +133,28 @@ public class Stanza {
 	}
 
 
-	public Set<String> getDirezioni() {
-		return this.stanzeAdiacenti.keySet();
+	
+	public Map<String, Stanza> getMapStanzeAdiacenti(){
+		return this.stanzeAdiacenti;
+	}
+	@Override
+	public boolean equals(Object o) {
+		if(this==o)return true;
+		if(!(o instanceof Stanza))return false;
+		Stanza stanza= (Stanza) o;
+		return this.getNome().equals(stanza.getNome());
+	}
+	@Override
+	public int hashCode() {
+		return java.util.Objects.hash(this.getNome());
+	}
+	public java.util.List<Attrezzo> getAttrezzi(){
+		return new java.util.ArrayList<>(this.attrezzi.values());
+	}
+	public java.util.List<String> getDirezioni(){
+		return new java.util.ArrayList<>(this.stanzeAdiacenti.keySet());
+	}
+	public boolean isMagica() {
+        return false;
     }
-
-}
+ }
