@@ -131,6 +131,9 @@ class BorsaTest {
     
     
     /*
+     * Codice sistemato ----> Avendo istanziato un TreeSet vuoto, senza passare un Comparator esterno, non sa come comportarsi (ClassCastException). Il fix
+     * sta nel implementare il metodo compareTo(Attrezzo altro) nella classe Attrezzo
+     */
     @Test
     void testGetContenutoOrdinatoPerNome() {
         
@@ -138,7 +141,7 @@ class BorsaTest {
         borsa.addAttrezzo(osso);
         borsa.addAttrezzo(spada);
 
-        SortedSet<Attrezzo> ordinati = borsa.getContenutoOrdinatoPerNome();  //<- QUI FALLISCE :(
+        SortedSet<Attrezzo> ordinati = borsa.getContenutoOrdinatoPerNome();
 
         // Verifica minimale: contiene gli stessi elementi
         assertEquals(3, ordinati.size());
@@ -147,7 +150,6 @@ class BorsaTest {
         assertTrue(ordinati.contains(spada));
     }
 
-    */
     
     
     @Test

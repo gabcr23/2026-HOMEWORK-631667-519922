@@ -39,12 +39,12 @@ class StanzaTest {
 		assertNotNull(this.stanza.getAttrezzo("Attrezzo test"),
 		        "L'attrezzo deve essere recuperabile tramite il nome");
 	}
+	// SISTEMA
 	@Test
 	void testAddAttrezzo_StanzaPiena() {
-		for(int i=0; i<10; i++) {
-			this.stanza.addAttrezzo(new Attrezzo("attrezzo" +i, 1));
-		}
+		Attrezzo attrezzo= new Attrezzo("Trapano",4);
 		Attrezzo attrezzoExtra= new Attrezzo("Trapano", 6);
+		assertTrue(this.stanza.addAttrezzo(attrezzo));
 		assertFalse(this.stanza.addAttrezzo(attrezzoExtra), "L'aggiunta dell'attrezzo extra non deve essere possibile");
 	}
 	@Test
@@ -92,15 +92,17 @@ class StanzaTest {
     }
 
 	
-	
+	//SISTEMA!
 	@Test
-	void testSetStanzaAdiacenteMaxDirezioni() {
+	void testSetStanzaAdiacenteMultiDirezioniNoLimite() {
 	    stanza.impostaStanzaAdiacente("nord", new Stanza("A"));
 	    stanza.impostaStanzaAdiacente("sud", new Stanza("B"));
 	    stanza.impostaStanzaAdiacente("est", new Stanza("C"));
 	    stanza.impostaStanzaAdiacente("ovest", new Stanza("D"));
-	    stanza.impostaStanzaAdiacente("alto", new Stanza("E"));
-	    assertNull(stanza.getStanzaAdiacente("alto")); 
+	    Stanza stanzaAlto=new Stanza("E");
+	    stanza.impostaStanzaAdiacente("alto", stanzaAlto);
+	    assertEquals(stanzaAlto, stanza.getStanzaAdiacente("alto"),"La mappa deve supportare direzioni arbitrarie");
+	    
 	}
 		
 	@Test 
